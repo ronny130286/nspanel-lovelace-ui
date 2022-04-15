@@ -44,6 +44,10 @@ First you need to add this rule to Tasmota:
 Rule2 on Button1#state do Publish tele/%topic%/RESULT {"CustomRecv":"event,button1"} endon on Button2#state do Publish tele/%topic%/RESULT {"CustomRecv":"event,button2"} endon
 Rule2
 ```
+Secound you have to actived the Rule
+```
+Rule2 1
+```
 
 ## Colors
 You can define colors this way and use them later in the PageItem element
