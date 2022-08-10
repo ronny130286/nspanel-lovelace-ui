@@ -12,6 +12,7 @@ Page popupLight
     
     Events
         Preinitialize Event
+            dim=dimValueNormal
             //get entitiy name
             tEntity.txt=pageIcons.tTmp1.txt
             //get entity id
@@ -29,7 +30,7 @@ Page popupLight
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -49,18 +50,41 @@ Page popupLight
             vis t0,0
             vis pColorWheel,0
             //vis t0,0
+            popupLight.bco=defaultBcoColor
+            for(sys0=0;sys0<27;sys0++)
+            {
+                if(b[sys0].type==98||b[sys0].type==116)
+                {
+                    b[sys0].bco=defaultBcoColor
+                    b[sys0].pco=defaultFontColor
+                }
+                if(b[sys0].type==53&&defaultBcoColor==0)
+                {
+                    b[sys0].pic=10
+                    b[sys0].pic2=11
+                }
+            }
+            if(defaultBcoColor==0)
+            {
+                hBrightness.pic=14
+                hBrightness.pic1=13
+                hBrightness.pic2=15
+                hTempSlider.pic=16
+                hTempSlider.pic1=17
+                hTempSlider.pic2=15
+            }
         
 Variable (string) strCommand
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 100
+        Max. Text Size: 500
     
 Variable (string) entn
     Attributes
         Scope         : local
-        Text          : newtxt
-        Max. Text Size: 50
+        Text          : 
+        Max. Text Size: 80
     
 Variable (int32) mode
     Attributes
@@ -100,7 +124,7 @@ Text t1
         Send Component ID                   : disabled
         Associated Keyboard                 : none
         Text                                : Brightness
-        Max. Text Size                      : 15
+        Max. Text Size                      : 50
     
 Text t2
     Attributes
@@ -130,7 +154,7 @@ Text t4
         Send Component ID                   : disabled
         Associated Keyboard                 : none
         Text                                : Temperature
-        Max. Text Size                      : 15
+        Max. Text Size                      : 50
     
 Text tSend
     Attributes
@@ -150,7 +174,7 @@ Text tTmp
         Send Component ID                   : disabled
         Associated Keyboard                 : none
         Text                                : 
-        Max. Text Size                      : 10
+        Max. Text Size                      : 80
     
 Text tInstruction
     Attributes
@@ -180,7 +204,7 @@ Text t0
         Send Component ID                   : disabled
         Associated Keyboard                 : none
         Text                                : Color
-        Max. Text Size                      : 15
+        Max. Text Size                      : 50
     
 Picture p0
     Attributes
@@ -209,11 +233,14 @@ Picture pColorWheel
             sys0=sys0-pColorWheel.y
             covx sys0,tTmp.txt,0,0
             tSend.txt+=tTmp.txt
+            tSend.txt+="|"
+            covx pColorWheel.h,tTmp.txt,0,0
+            tSend.txt+=tTmp.txt
             //send calc crc
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -243,7 +270,7 @@ Slider hBrightness
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -273,7 +300,7 @@ Slider hTempSlider
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -298,7 +325,7 @@ Button b0
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -361,7 +388,7 @@ Dual-state Button btOnOff1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -439,21 +466,22 @@ Timer tmSerial
                                     ucopy strCommand.txt,4,payloadLength-5,0
                                     // write instruction to tInstuction (debug output, but used as variable here, ui elements will be disabled by default)
                                     spstr strCommand.txt,tInstruction.txt,"~",0
-                                    if(tInstruction.txt=="entityUpdateDetail")
+                                    spstr strCommand.txt,tTmp.txt,"~",1
+                                    if(tInstruction.txt=="entityUpdateDetail"&&entn.txt==tTmp.txt)
                                     {
                                         // change icon
-                                        spstr strCommand.txt,tIcon1.txt,"~",1
+                                        spstr strCommand.txt,tIcon1.txt,"~",2
                                         vis tIcon1,1
                                         // change icon color
-                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        spstr strCommand.txt,tTmp.txt,"~",3
                                         covx tTmp.txt,sys0,0,0
                                         tIcon1.pco=sys0
                                         // get Button State
-                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        spstr strCommand.txt,tTmp.txt,"~",4
                                         covx tTmp.txt,sys0,0,0
                                         btOnOff1.val=sys0
                                         // get Brightness value
-                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        spstr strCommand.txt,tTmp.txt,"~",5
                                         if(tTmp.txt=="disable")
                                         {
                                             vis t1,0
@@ -471,7 +499,7 @@ Timer tmSerial
                                             }
                                         }
                                         // get ColorTemp value
-                                        spstr strCommand.txt,tTmp.txt,"~",5
+                                        spstr strCommand.txt,tTmp.txt,"~",6
                                         if(tTmp.txt=="disable")
                                         {
                                             vis hTempSlider,0
@@ -515,7 +543,7 @@ Timer tmSerial
                                             }
                                         }
                                         // get Color value
-                                        spstr strCommand.txt,tTmp.txt,"~",6
+                                        spstr strCommand.txt,tTmp.txt,"~",7
                                         // disable -> isn't supported
                                         if(tTmp.txt=="disable")
                                         {
@@ -535,6 +563,12 @@ Timer tmSerial
                                                 vis pColorWheel,1
                                             }
                                         }
+                                        // set t0 Color (Localization)
+                                        spstr strCommand.txt,t0.txt,"~",8
+                                        // set t4 Temperature (Localization)
+                                        spstr strCommand.txt,t4.txt,"~",9
+                                        // set t1 Brightness (Localization)
+                                        spstr strCommand.txt,t1.txt,"~",10
                                     }
                                     if(tInstruction.txt=="time")
                                     {
@@ -551,6 +585,22 @@ Timer tmSerial
                                         // get value
                                         spstr strCommand.txt,tTmp.txt,"~",1
                                         covx tTmp.txt,dimValue,0,0
+                                        // get value normal
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        covx tTmp.txt,dimValueNormal,0,0
+                                        dim=dimValueNormal
+                                        // get background color
+                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultBcoColor,0,0
+                                        }
+                                        // get font color
+                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultFontColor,0,0
+                                        }
                                     }
                                     if(tInstruction.txt=="timeout")
                                     {
@@ -611,6 +661,10 @@ Timer tmSerial
                                         if(tId.txt=="cardAlarm")
                                         {
                                             page cardAlarm
+                                        }
+                                        if(tId.txt=="cardQR")
+                                        {
+                                            page cardQR
                                         }
                                     }
                                     // end of user code

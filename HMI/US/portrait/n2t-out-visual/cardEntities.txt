@@ -20,6 +20,7 @@ Page cardEntities
     
     Events
         Preinitialize Event
+            dim=dimValueNormal
             //wup=cardEntities
             //remove background & activate reparse mode
             vis p0,0
@@ -70,6 +71,8 @@ Page cardEntities
             vis bText4,0
             vis hSlider4,0
             vis nNum4,0
+            vis bPrev,0
+            vis bNext,0
             //ui e5
             vis btOnOff5,0
             vis bUp5,0
@@ -80,6 +83,26 @@ Page cardEntities
             vis bText5,0
             vis hSlider5,0
             vis nNum5,0
+            cardEntities.bco=defaultBcoColor
+            for(sys0=0;sys0<65;sys0++)
+            {
+                if(b[sys0].type==98||b[sys0].type==116||b[sys0].type==54)
+                {
+                    b[sys0].bco=defaultBcoColor
+                    b[sys0].pco=defaultFontColor
+                }
+                if(b[sys0].type==53&&defaultBcoColor==0)
+                {
+                    b[sys0].pic=10
+                    b[sys0].pic2=11
+                }
+                if(b[sys0].type==1&&defaultBcoColor==0)
+                {
+                    b[sys0].pic=14
+                    b[sys0].pic1=13
+                    b[sys0].pic2=15
+                }
+            }
         
 Variable (string) strCommand
     Attributes
@@ -121,35 +144,35 @@ Variable (string) entn1
         ID            : 49
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) entn2
     Attributes
         ID            : 50
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) entn3
     Attributes
         ID            : 51
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) entn4
     Attributes
         ID            : 52
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) entn5
     Attributes
         ID            : 62
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) type5
     Attributes
@@ -167,7 +190,7 @@ Number nNum1
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 100
+        y coordinate                        : 77
         Width                               : 46
         Height                              : 50
         Effect                              : load
@@ -197,7 +220,7 @@ Number nNum2
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 180
+        y coordinate                        : 154
         Width                               : 46
         Height                              : 50
         Effect                              : load
@@ -227,7 +250,7 @@ Number nNum3
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 260
+        y coordinate                        : 232
         Width                               : 45
         Height                              : 50
         Effect                              : load
@@ -257,7 +280,7 @@ Number nNum4
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 340
+        y coordinate                        : 311
         Width                               : 44
         Height                              : 50
         Effect                              : load
@@ -286,8 +309,8 @@ Number nNum5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 265
-        y coordinate                        : 420
+        x coordinate                        : 268
+        y coordinate                        : 391
         Width                               : 44
         Height                              : 50
         Effect                              : load
@@ -346,10 +369,10 @@ Text tEntity1
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 10
-        y coordinate                        : 70
-        Width                               : 300
-        Height                              : 30
+        x coordinate                        : 49
+        y coordinate                        : 76
+        Width                               : 115
+        Height                              : 53
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -364,7 +387,7 @@ Text tEntity1
         Input Type                          : character
         Text                                : tEntity1
         Max. Text Size                      : 30
-        Word wrap                           : disabled
+        Word wrap                           : enabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
     
@@ -376,10 +399,10 @@ Text tEntity2
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 10
-        y coordinate                        : 150
-        Width                               : 300
-        Height                              : 30
+        x coordinate                        : 49
+        y coordinate                        : 152
+        Width                               : 115
+        Height                              : 53
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -394,7 +417,7 @@ Text tEntity2
         Input Type                          : character
         Text                                : tEntity2
         Max. Text Size                      : 30
-        Word wrap                           : disabled
+        Word wrap                           : enabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
     
@@ -406,10 +429,10 @@ Text tEntity3
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 10
+        x coordinate                        : 49
         y coordinate                        : 230
-        Width                               : 300
-        Height                              : 30
+        Width                               : 115
+        Height                              : 53
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -424,7 +447,7 @@ Text tEntity3
         Input Type                          : character
         Text                                : tEntity3
         Max. Text Size                      : 30
-        Word wrap                           : disabled
+        Word wrap                           : enabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
     
@@ -436,10 +459,10 @@ Text tEntity4
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 10
+        x coordinate                        : 49
         y coordinate                        : 310
-        Width                               : 300
-        Height                              : 30
+        Width                               : 115
+        Height                              : 53
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -454,7 +477,7 @@ Text tEntity4
         Input Type                          : character
         Text                                : tEntity4
         Max. Text Size                      : 30
-        Word wrap                           : disabled
+        Word wrap                           : enabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
     
@@ -466,9 +489,9 @@ Text tIcon1
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 118
-        y coordinate                        : 105
-        Width                               : 45
+        x coordinate                        : 15
+        y coordinate                        : 84
+        Width                               : 33
         Height                              : 30
         Effect                              : load
         Effect Priority                     : 0
@@ -496,9 +519,9 @@ Text tIcon2
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 118
-        y coordinate                        : 185
-        Width                               : 45
+        x coordinate                        : 15
+        y coordinate                        : 163
+        Width                               : 33
         Height                              : 30
         Effect                              : load
         Effect Priority                     : 0
@@ -526,9 +549,9 @@ Text tIcon3
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 118
-        y coordinate                        : 270
-        Width                               : 45
+        x coordinate                        : 13
+        y coordinate                        : 241
+        Width                               : 33
         Height                              : 30
         Effect                              : load
         Effect Priority                     : 0
@@ -556,9 +579,9 @@ Text tIcon4
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 118
-        y coordinate                        : 350
-        Width                               : 45
+        x coordinate                        : 15
+        y coordinate                        : 321
+        Width                               : 32
         Height                              : 30
         Effect                              : load
         Effect Priority                     : 0
@@ -706,10 +729,10 @@ Text tEntity5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 10
+        x coordinate                        : 49
         y coordinate                        : 390
-        Width                               : 300
-        Height                              : 30
+        Width                               : 115
+        Height                              : 53
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -724,7 +747,7 @@ Text tEntity5
         Input Type                          : character
         Text                                : tEntity5
         Max. Text Size                      : 30
-        Word wrap                           : disabled
+        Word wrap                           : enabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
     
@@ -736,9 +759,9 @@ Text tIcon5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 118
-        y coordinate                        : 430
-        Width                               : 45
+        x coordinate                        : 15
+        y coordinate                        : 401
+        Width                               : 33
         Height                              : 30
         Effect                              : load
         Effect Priority                     : 0
@@ -783,8 +806,8 @@ Slider hSlider1
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 210
-        y coordinate                        : 100
+        x coordinate                        : 164
+        y coordinate                        : 80
         Width                               : 100
         Height                              : 43
         Effect                              : load
@@ -810,7 +833,7 @@ Slider hSlider1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -826,8 +849,8 @@ Slider hSlider2
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 210
-        y coordinate                        : 180
+        x coordinate                        : 164
+        y coordinate                        : 157
         Width                               : 100
         Height                              : 43
         Effect                              : load
@@ -853,7 +876,7 @@ Slider hSlider2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -869,8 +892,8 @@ Slider hSlider3
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 210
-        y coordinate                        : 260
+        x coordinate                        : 164
+        y coordinate                        : 235
         Width                               : 100
         Height                              : 43
         Effect                              : load
@@ -896,7 +919,7 @@ Slider hSlider3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -912,8 +935,8 @@ Slider hSlider4
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 210
-        y coordinate                        : 340
+        x coordinate                        : 164
+        y coordinate                        : 314
         Width                               : 100
         Height                              : 43
         Effect                              : load
@@ -939,7 +962,7 @@ Slider hSlider4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -955,8 +978,8 @@ Slider hSlider5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 210
-        y coordinate                        : 420
+        x coordinate                        : 164
+        y coordinate                        : 394
         Width                               : 100
         Height                              : 43
         Effect                              : load
@@ -982,7 +1005,7 @@ Slider hSlider5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -999,7 +1022,7 @@ Button bDown1
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 100
+        y coordinate                        : 77
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1029,7 +1052,7 @@ Button bDown1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1046,7 +1069,7 @@ Button bUp1
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 100
+        y coordinate                        : 77
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1076,7 +1099,7 @@ Button bUp1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1093,7 +1116,7 @@ Button bStop1
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 215
-        y coordinate                        : 100
+        y coordinate                        : 77
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1123,7 +1146,7 @@ Button bStop1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1140,7 +1163,7 @@ Button bStop2
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 215
-        y coordinate                        : 180
+        y coordinate                        : 154
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1170,7 +1193,7 @@ Button bStop2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1186,8 +1209,8 @@ Button bDown2
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 269
-        y coordinate                        : 153
+        x coordinate                        : 265
+        y coordinate                        : 154
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1217,7 +1240,7 @@ Button bDown2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1234,7 +1257,7 @@ Button bUp2
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 180
+        y coordinate                        : 154
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1264,7 +1287,7 @@ Button bUp2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1281,7 +1304,7 @@ Button bStop3
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 215
-        y coordinate                        : 260
+        y coordinate                        : 232
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1311,7 +1334,7 @@ Button bStop3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1328,7 +1351,7 @@ Button bDown3
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 260
+        y coordinate                        : 233
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1358,7 +1381,7 @@ Button bDown3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1375,7 +1398,7 @@ Button bUp3
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 260
+        y coordinate                        : 232
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1405,7 +1428,7 @@ Button bUp3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1422,7 +1445,7 @@ Button bStop4
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 215
-        y coordinate                        : 340
+        y coordinate                        : 311
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1452,7 +1475,7 @@ Button bStop4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1469,7 +1492,7 @@ Button bDown4
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 340
+        y coordinate                        : 311
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1499,7 +1522,7 @@ Button bDown4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1516,7 +1539,7 @@ Button bUp4
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 340
+        y coordinate                        : 311
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1546,7 +1569,7 @@ Button bUp4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1600,7 +1623,7 @@ Button bPrev
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1647,7 +1670,7 @@ Button bNext
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1664,7 +1687,7 @@ Button bText1
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 105
+        y coordinate                        : 82
         Width                               : 145
         Height                              : 30
         Effect                              : load
@@ -1681,8 +1704,8 @@ Button bText1
         Horizontal Alignment                : right
         Vertical Alignment                  : center
         State                               : unpressed
-        Text                                : newtxt
-        Max. Text Size                      : 10
+        Text                                : 
+        Max. Text Size                      : 20
         Word wrap                           : disabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
@@ -1694,7 +1717,7 @@ Button bText1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1711,7 +1734,7 @@ Button bText2
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 185
+        y coordinate                        : 159
         Width                               : 145
         Height                              : 30
         Effect                              : load
@@ -1728,8 +1751,8 @@ Button bText2
         Horizontal Alignment                : right
         Vertical Alignment                  : center
         State                               : unpressed
-        Text                                : newtxt
-        Max. Text Size                      : 10
+        Text                                : 
+        Max. Text Size                      : 20
         Word wrap                           : disabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
@@ -1741,7 +1764,7 @@ Button bText2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1758,7 +1781,7 @@ Button bText3
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 270
+        y coordinate                        : 242
         Width                               : 145
         Height                              : 30
         Effect                              : load
@@ -1775,8 +1798,8 @@ Button bText3
         Horizontal Alignment                : right
         Vertical Alignment                  : center
         State                               : unpressed
-        Text                                : newtxt
-        Max. Text Size                      : 10
+        Text                                : 
+        Max. Text Size                      : 20
         Word wrap                           : disabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
@@ -1788,7 +1811,7 @@ Button bText3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1805,7 +1828,7 @@ Button bText4
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 165
-        y coordinate                        : 350
+        y coordinate                        : 321
         Width                               : 145
         Height                              : 30
         Effect                              : load
@@ -1822,8 +1845,8 @@ Button bText4
         Horizontal Alignment                : right
         Vertical Alignment                  : center
         State                               : unpressed
-        Text                                : newtxt
-        Max. Text Size                      : 10
+        Text                                : 
+        Max. Text Size                      : 20
         Word wrap                           : disabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
@@ -1835,7 +1858,7 @@ Button bText4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1851,8 +1874,8 @@ Button bStop5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 215
-        y coordinate                        : 420
+        x coordinate                        : 218
+        y coordinate                        : 391
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1882,7 +1905,7 @@ Button bStop5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1898,8 +1921,8 @@ Button bDown5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 265
-        y coordinate                        : 420
+        x coordinate                        : 268
+        y coordinate                        : 391
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1929,7 +1952,7 @@ Button bDown5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1945,8 +1968,8 @@ Button bUp5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 165
-        y coordinate                        : 420
+        x coordinate                        : 168
+        y coordinate                        : 391
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -1976,7 +1999,7 @@ Button bUp5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -1992,8 +2015,8 @@ Button bText5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 165
-        y coordinate                        : 430
+        x coordinate                        : 168
+        y coordinate                        : 401
         Width                               : 145
         Height                              : 30
         Effect                              : load
@@ -2010,8 +2033,8 @@ Button bText5
         Horizontal Alignment                : right
         Vertical Alignment                  : center
         State                               : unpressed
-        Text                                : newtxt
-        Max. Text Size                      : 10
+        Text                                : 
+        Max. Text Size                      : 20
         Word wrap                           : disabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
@@ -2023,7 +2046,7 @@ Button bText5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -2040,7 +2063,7 @@ Dual-state Button btOnOff1
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 100
+        y coordinate                        : 77
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -2068,7 +2091,7 @@ Dual-state Button btOnOff1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -2085,7 +2108,7 @@ Dual-state Button btOnOff2
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 180
+        y coordinate                        : 154
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -2113,7 +2136,7 @@ Dual-state Button btOnOff2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -2130,7 +2153,7 @@ Dual-state Button btOnOff3
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 260
+        y coordinate                        : 232
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -2158,7 +2181,7 @@ Dual-state Button btOnOff3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -2175,7 +2198,7 @@ Dual-state Button btOnOff4
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 265
-        y coordinate                        : 340
+        y coordinate                        : 311
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -2203,7 +2226,7 @@ Dual-state Button btOnOff4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -2219,8 +2242,8 @@ Dual-state Button btOnOff5
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 265
-        y coordinate                        : 420
+        x coordinate                        : 268
+        y coordinate                        : 391
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -2248,7 +2271,7 @@ Dual-state Button btOnOff5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -2290,10 +2313,10 @@ Hotspot m2
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 0
-        y coordinate                        : 230
-        Width                               : 320
-        Height                              : 75
+        x coordinate                        : 13
+        y coordinate                        : 221
+        Width                               : 150
+        Height                              : 71
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -2312,6 +2335,10 @@ Hotspot m2
                 //popupLight.tEntity.txt=tEntity3.txt
                 page popupLight
             }
+            if(type3.txt=="fan")
+            {
+                page popupFan
+            }
         
 Hotspot m1
     Attributes
@@ -2321,9 +2348,9 @@ Hotspot m1
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 0
-        y coordinate                        : 150
-        Width                               : 320
+        x coordinate                        : 14
+        y coordinate                        : 142
+        Width                               : 150
         Height                              : 75
         Effect                              : load
         Effect Priority                     : 0
@@ -2343,6 +2370,10 @@ Hotspot m1
                 //popupLight.tEntity.txt=tEntity2.txt
                 page popupLight
             }
+            if(type2.txt=="fan")
+            {
+                page popupFan
+            }
         
 Hotspot m0
     Attributes
@@ -2352,9 +2383,9 @@ Hotspot m0
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 0
-        y coordinate                        : 70
-        Width                               : 320
+        x coordinate                        : 14
+        y coordinate                        : 64
+        Width                               : 150
         Height                              : 75
         Effect                              : load
         Effect Priority                     : 0
@@ -2374,6 +2405,10 @@ Hotspot m0
                 //popupLight.tEntity.txt=tEntity1.txt
                 page popupLight
             }
+            if(type1.txt=="fan")
+            {
+                page popupFan
+            }
         
 Hotspot m3
     Attributes
@@ -2383,10 +2418,10 @@ Hotspot m3
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 0
-        y coordinate                        : 310
-        Width                               : 320
-        Height                              : 75
+        x coordinate                        : 16
+        y coordinate                        : 302
+        Width                               : 150
+        Height                              : 73
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -2405,6 +2440,10 @@ Hotspot m3
                 //popupLight.tEntity.txt=tEntity4.txt
                 page popupLight
             }
+            if(type4.txt=="fan")
+            {
+                page popupFan
+            }
         
 Hotspot m4
     Attributes
@@ -2414,10 +2453,10 @@ Hotspot m4
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 0
-        y coordinate                        : 390
-        Width                               : 320
-        Height                              : 75
+        x coordinate                        : 13
+        y coordinate                        : 380
+        Width                               : 150
+        Height                              : 73
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -2436,6 +2475,70 @@ Hotspot m4
                 //popupLight.tEntity.txt=tEntity5.txt
                 page popupLight
             }
+            if(type5.txt=="fan")
+            {
+                page popupFan
+            }
+        
+Hotspot mSwipeNext
+    Attributes
+        ID                                  : 74
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 313
+        y coordinate                        : 3
+        Width                               : 5
+        Height                              : 470
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+    
+    Events
+        Touch Press Event
+            click bNext,1
+        
+Hotspot mSwipeUp
+    Attributes
+        ID                                  : 75
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 10
+        y coordinate                        : 0
+        Width                               : 300
+        Height                              : 8
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+    
+    Events
+        Touch Press Event
+            click bPrev,1
+        
+Hotspot mSwipePrev
+    Attributes
+        ID                                  : 76
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 0
+        y coordinate                        : 5
+        Width                               : 7
+        Height                              : 470
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+    
+    Events
+        Touch Press Event
+            click bPrev,1
         
 Timer tmSerial
     Attributes
@@ -2499,25 +2602,33 @@ Timer tmSerial
                                         if(tTmp.txt=="0")
                                         {
                                             vis bPrev,0
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,1
+                                            tsw mSwipeUp,0
                                             bPrev.txt="î°"
                                         }
                                         if(tTmp.txt=="2")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,1
                                             bPrev.txt="î¶"
                                         }
                                         spstr tId.txt,tTmp.txt,"|",1
                                         if(tTmp.txt=="0")
                                         {
                                             vis bNext,0
+                                            tsw mSwipeNext,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bNext,1
+                                            tsw mSwipeNext,1
                                             bNext.txt="î³"
                                         }
                                         // get Type
@@ -2557,22 +2668,49 @@ Timer tmSerial
                                             vis bText1,0
                                             vis hSlider1,0
                                             vis nNum1,0
-                                        }
-                                        if(type1.txt=="light")
-                                        {
-                                            vis bUp1,0
-                                            vis bStop1,0
-                                            vis bDown1,0
-                                            vis btOnOff1,1
-                                            vis bText1,0
-                                            vis hSlider1,0
-                                            vis nNum1,0
                                             // get Button State (optional Value)
-                                            spstr strCommand.txt,tTmp.txt,"~",8
-                                            covx tTmp.txt,sys0,0,0
-                                            btOnOff1.val=sys0
+                                            spstr strCommand.txt,tId.txt,"~",8
+                                            // up button
+                                            spstr tId.txt,tTmp.txt,"|",3
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bUp1.pco=27501
+                                                spstr tId.txt,bUp1.txt,"|",0
+                                                tsw bUp1,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bUp1.pco=65535
+                                                spstr tId.txt,bUp1.txt,"|",0
+                                                tsw bUp1,1
+                                            }
+                                            // stop button
+                                            spstr tId.txt,tTmp.txt,"|",4
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bStop1.pco=27501
+                                                spstr tId.txt,bStop1.txt,"|",1
+                                                tsw bStop1,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bStop1.pco=65535
+                                                spstr tId.txt,bStop1.txt,"|",1
+                                                tsw bStop1,1
+                                            }
+                                            // down button
+                                            spstr tId.txt,tTmp.txt,"|",5
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bDown1.pco=27501
+                                                spstr tId.txt,bDown1.txt,"|",2
+                                                tsw bDown1,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bDown1.pco=65535
+                                                spstr tId.txt,bDown1.txt,"|",2
+                                                tsw bDown1,1
+                                            }
                                         }
-                                        if(type1.txt=="switch")
+                                        if(type1.txt=="light"||type1.txt=="switch"||type1.txt=="fan")
                                         {
                                             vis bUp1,0
                                             vis bStop1,0
@@ -2679,22 +2817,49 @@ Timer tmSerial
                                             vis bText2,0
                                             vis hSlider2,0
                                             vis nNum2,0
-                                        }
-                                        if(type2.txt=="light")
-                                        {
-                                            vis bUp2,0
-                                            vis bStop2,0
-                                            vis bDown2,0
-                                            vis btOnOff2,1
-                                            vis bText2,0
-                                            vis hSlider2,0
-                                            vis nNum2,0
                                             // get Button State (optional Value)
-                                            spstr strCommand.txt,tTmp.txt,"~",14
-                                            covx tTmp.txt,sys0,0,0
-                                            btOnOff2.val=sys0
+                                            spstr strCommand.txt,tId.txt,"~",14
+                                            // up button
+                                            spstr tId.txt,tTmp.txt,"|",3
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bUp2.pco=27501
+                                                spstr tId.txt,bUp2.txt,"|",0
+                                                tsw bUp2,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bUp2.pco=65535
+                                                spstr tId.txt,bUp2.txt,"|",0
+                                                tsw bUp2,1
+                                            }
+                                            // stop button
+                                            spstr tId.txt,tTmp.txt,"|",4
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bStop2.pco=27501
+                                                spstr tId.txt,bStop2.txt,"|",1
+                                                tsw bStop2,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bStop2.pco=65535
+                                                spstr tId.txt,bStop2.txt,"|",1
+                                                tsw bStop2,1
+                                            }
+                                            // down button
+                                            spstr tId.txt,tTmp.txt,"|",5
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bDown2.pco=27501
+                                                spstr tId.txt,bDown2.txt,"|",2
+                                                tsw bDown2,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bDown2.pco=65535
+                                                spstr tId.txt,bDown2.txt,"|",2
+                                                tsw bDown2,1
+                                            }
                                         }
-                                        if(type2.txt=="switch")
+                                        if(type2.txt=="light"||type2.txt=="switch"||type2.txt=="fan")
                                         {
                                             vis bUp2,0
                                             vis bStop2,0
@@ -2801,22 +2966,49 @@ Timer tmSerial
                                             vis bText3,0
                                             vis hSlider3,0
                                             vis nNum3,0
-                                        }
-                                        if(type3.txt=="light")
-                                        {
-                                            vis bUp3,0
-                                            vis bStop3,0
-                                            vis bDown3,0
-                                            vis btOnOff3,1
-                                            vis bText3,0
-                                            vis hSlider3,0
-                                            vis nNum3,0
                                             // get Button State (optional Value)
-                                            spstr strCommand.txt,tTmp.txt,"~",20
-                                            covx tTmp.txt,sys0,0,0
-                                            btOnOff3.val=sys0
+                                            spstr strCommand.txt,tId.txt,"~",20
+                                            // up button
+                                            spstr tId.txt,tTmp.txt,"|",3
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bUp3.pco=27501
+                                                spstr tId.txt,bUp3.txt,"|",0
+                                                tsw bUp3,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bUp3.pco=65535
+                                                spstr tId.txt,bUp3.txt,"|",0
+                                                tsw bUp3,1
+                                            }
+                                            // stop button
+                                            spstr tId.txt,tTmp.txt,"|",4
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bStop3.pco=27501
+                                                spstr tId.txt,bStop3.txt,"|",1
+                                                tsw bStop3,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bStop3.pco=65535
+                                                spstr tId.txt,bStop3.txt,"|",1
+                                                tsw bStop3,1
+                                            }
+                                            // down button
+                                            spstr tId.txt,tTmp.txt,"|",5
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bDown3.pco=27501
+                                                spstr tId.txt,bDown3.txt,"|",2
+                                                tsw bDown3,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bDown3.pco=65535
+                                                spstr tId.txt,bDown3.txt,"|",2
+                                                tsw bDown3,1
+                                            }
                                         }
-                                        if(type3.txt=="switch")
+                                        if(type3.txt=="light"||type3.txt=="switch"||type3.txt=="fan")
                                         {
                                             vis bUp3,0
                                             vis bStop3,0
@@ -2923,22 +3115,49 @@ Timer tmSerial
                                             vis bText4,0
                                             vis hSlider4,0
                                             vis nNum4,0
-                                        }
-                                        if(type4.txt=="light")
-                                        {
-                                            vis bUp4,0
-                                            vis bStop4,0
-                                            vis bDown4,0
-                                            vis btOnOff4,1
-                                            vis bText4,0
-                                            vis hSlider4,0
-                                            vis nNum4,0
                                             // get Button State (optional Value)
-                                            spstr strCommand.txt,tTmp.txt,"~",26
-                                            covx tTmp.txt,sys0,0,0
-                                            btOnOff4.val=sys0
+                                            spstr strCommand.txt,tId.txt,"~",26
+                                            // up button
+                                            spstr tId.txt,tTmp.txt,"|",3
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bUp4.pco=27501
+                                                spstr tId.txt,bUp4.txt,"|",0
+                                                tsw bUp4,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bUp4.pco=65535
+                                                spstr tId.txt,bUp4.txt,"|",0
+                                                tsw bUp4,1
+                                            }
+                                            // stop button
+                                            spstr tId.txt,tTmp.txt,"|",4
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bStop4.pco=27501
+                                                spstr tId.txt,bStop4.txt,"|",1
+                                                tsw bStop4,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bStop4.pco=65535
+                                                spstr tId.txt,bStop4.txt,"|",1
+                                                tsw bStop4,1
+                                            }
+                                            // down button
+                                            spstr tId.txt,tTmp.txt,"|",5
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bDown4.pco=27501
+                                                spstr tId.txt,bDown4.txt,"|",2
+                                                tsw bDown4,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bDown4.pco=65535
+                                                spstr tId.txt,bDown4.txt,"|",2
+                                                tsw bDown4,1
+                                            }
                                         }
-                                        if(type4.txt=="switch")
+                                        if(type4.txt=="light"||type4.txt=="switch"||type4.txt=="fan")
                                         {
                                             vis bUp4,0
                                             vis bStop4,0
@@ -3045,22 +3264,49 @@ Timer tmSerial
                                             vis bText5,0
                                             vis hSlider5,0
                                             vis nNum5,0
-                                        }
-                                        if(type5.txt=="light")
-                                        {
-                                            vis bUp5,0
-                                            vis bStop5,0
-                                            vis bDown5,0
-                                            vis btOnOff5,1
-                                            vis bText5,0
-                                            vis hSlider5,0
-                                            vis nNum5,0
                                             // get Button State (optional Value)
-                                            spstr strCommand.txt,tTmp.txt,"~",32
-                                            covx tTmp.txt,sys0,0,0
-                                            btOnOff5.val=sys0
+                                            spstr strCommand.txt,tId.txt,"~",32
+                                            // up button
+                                            spstr tId.txt,tTmp.txt,"|",3
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bUp5.pco=27501
+                                                spstr tId.txt,bUp5.txt,"|",0
+                                                tsw bUp5,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bUp5.pco=65535
+                                                spstr tId.txt,bUp5.txt,"|",0
+                                                tsw bUp5,1
+                                            }
+                                            // stop button
+                                            spstr tId.txt,tTmp.txt,"|",4
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bStop5.pco=27501
+                                                spstr tId.txt,bStop5.txt,"|",1
+                                                tsw bStop5,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bStop5.pco=65535
+                                                spstr tId.txt,bStop5.txt,"|",1
+                                                tsw bStop5,1
+                                            }
+                                            // down button
+                                            spstr tId.txt,tTmp.txt,"|",5
+                                            if(tTmp.txt=="disable")
+                                            {
+                                                bDown5.pco=27501
+                                                spstr tId.txt,bDown5.txt,"|",2
+                                                tsw bDown5,0
+                                            }else if(tTmp.txt=="enable")
+                                            {
+                                                bDown5.pco=65535
+                                                spstr tId.txt,bDown5.txt,"|",2
+                                                tsw bDown5,1
+                                            }
                                         }
-                                        if(type5.txt=="switch")
+                                        if(type5.txt=="light"||type5.txt=="switch"||type5.txt=="fan")
                                         {
                                             vis bUp5,0
                                             vis bStop5,0
@@ -3185,6 +3431,10 @@ Timer tmSerial
                                         {
                                             page cardAlarm
                                         }
+                                        if(tId.txt=="cardQR")
+                                        {
+                                            page cardQR
+                                        }
                                     }
                                     if(tInstruction.txt=="time")
                                     {
@@ -3201,6 +3451,22 @@ Timer tmSerial
                                         // get value
                                         spstr strCommand.txt,tTmp.txt,"~",1
                                         covx tTmp.txt,dimValue,0,0
+                                        // get value normal
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        covx tTmp.txt,dimValueNormal,0,0
+                                        dim=dimValueNormal
+                                        // get background color
+                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultBcoColor,0,0
+                                        }
+                                        // get font color
+                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultFontColor,0,0
+                                        }
                                     }
                                     if(tInstruction.txt=="timeout")
                                     {
@@ -3241,7 +3507,7 @@ Timer tmSleep
                     btlen tSend.txt,sys0
                     crcrest 1,0xffff // reset CRC
                     crcputh 55 bb
-                    crcputs sys0,1
+                    crcputs sys0,2
                     crcputs tSend.txt,0
                     //send cmd
                     printh 55 bb

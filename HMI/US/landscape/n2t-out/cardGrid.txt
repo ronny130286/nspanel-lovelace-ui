@@ -12,7 +12,7 @@ Page cardGrid
     
     Events
         Preinitialize Event
-            //wup=cardEntities
+            dim=dimValueNormal
             //remove background & activate reparse mode
             vis p0,0
             recmod=1
@@ -34,6 +34,17 @@ Page cardGrid
             vis tEntity4,0
             vis tEntity5,0
             vis tEntity6,0
+            vis bPrev,0
+            vis bNext,0
+            cardGrid.bco=defaultBcoColor
+            for(sys0=0;sys0<42;sys0++)
+            {
+                if(b[sys0].type==98||b[sys0].type==116)
+                {
+                    b[sys0].bco=defaultBcoColor
+                    b[sys0].pco=defaultFontColor
+                }
+            }
         
 Variable (string) strCommand
     Attributes
@@ -69,25 +80,25 @@ Variable (string) entn1
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) entn2
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) entn3
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) entn4
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 70
+        Max. Text Size: 80
     
 Variable (string) type5
     Attributes
@@ -105,13 +116,13 @@ Variable (string) entn5
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 50
+        Max. Text Size: 80
     
 Variable (string) entn6
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 50
+        Max. Text Size: 80
     
 Text tHeading
     Attributes
@@ -254,7 +265,7 @@ Button bPrev
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -279,7 +290,7 @@ Button bNext
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -315,7 +326,7 @@ Button bEntity1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -351,7 +362,7 @@ Button bEntity2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -387,7 +398,7 @@ Button bEntity3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -423,7 +434,7 @@ Button bEntity4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -459,7 +470,7 @@ Button bEntity5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -495,7 +506,7 @@ Button bEntity6
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -519,6 +530,39 @@ Hotspot mSpecial
             {
                 page pageTest
             }
+        
+Hotspot mSwipeNext
+    Attributes
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+    
+    Events
+        Touch Press Event
+            click bNext,1
+        
+Hotspot mSwipeUp
+    Attributes
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+    
+    Events
+        Touch Press Event
+            click bPrev,1
+        
+Hotspot mSwipePrev
+    Attributes
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+    
+    Events
+        Touch Press Event
+            click bPrev,1
         
 Timer tmSerial
     Attributes
@@ -581,25 +625,33 @@ Timer tmSerial
                                         if(tTmp.txt=="0")
                                         {
                                             vis bPrev,0
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,1
+                                            tsw mSwipeUp,0
                                             bPrev.txt="î°"
                                         }
                                         if(tTmp.txt=="2")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,1
                                             bPrev.txt="î¶"
                                         }
                                         spstr tId.txt,tTmp.txt,"|",1
                                         if(tTmp.txt=="0")
                                         {
                                             vis bNext,0
+                                            tsw mSwipeNext,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bNext,1
+                                            tsw mSwipeNext,1
                                             bNext.txt="î³"
                                         }
                                         // get Type
@@ -783,6 +835,10 @@ Timer tmSerial
                                         {
                                             page cardAlarm
                                         }
+                                        if(tId.txt=="cardQR")
+                                        {
+                                            page cardQR
+                                        }
                                     }
                                     if(tInstruction.txt=="time")
                                     {
@@ -799,6 +855,22 @@ Timer tmSerial
                                         // get value
                                         spstr strCommand.txt,tTmp.txt,"~",1
                                         covx tTmp.txt,dimValue,0,0
+                                        // get value normal
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        covx tTmp.txt,dimValueNormal,0,0
+                                        dim=dimValueNormal
+                                        // get background color
+                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultBcoColor,0,0
+                                        }
+                                        // get font color
+                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultFontColor,0,0
+                                        }
                                     }
                                     if(tInstruction.txt=="timeout")
                                     {
@@ -838,7 +910,7 @@ Timer tmSleep
                     btlen tSend.txt,sys0
                     crcrest 1,0xffff // reset CRC
                     crcputh 55 bb
-                    crcputs sys0,1
+                    crcputs sys0,2
                     crcputs tSend.txt,0
                     //send cmd
                     printh 55 bb
@@ -859,6 +931,10 @@ Timer tmLP
             if(tTmp.txt=="light")
             {
                 page popupLight
+            }
+            if(tTmp.txt=="fan")
+            {
+                page popupFan
             }
         
 TouchCap tc0

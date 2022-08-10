@@ -11,8 +11,9 @@ def hsv2rgb(h, s, v):
     hsv = colorsys.hsv_to_rgb(h,s,v)
     return tuple(round(i * 255) for i in hsv)
     
-def pos_to_color(x, y):
-    r = 160/2
+def pos_to_color(x, y, wh):
+    #r = 160/2
+    r = wh/2
     x = round((x - r) / r * 100) / 100
     y = round((r - y) / r * 100) / 100
     
@@ -55,11 +56,3 @@ def get_attr_safe(entity, attr, default):
     if res is None:
         res = default
     return res
-
-def dict_recursive_update(source: dict, target: dict) -> dict:
-    for sk, sv in source.items():
-        if sk in target and isinstance(target[sk], dict):
-            target[sk] = dict_recursive_update(sv, target[sk])
-        else:
-            target[sk] = sv
-    return target

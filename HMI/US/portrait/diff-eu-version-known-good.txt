@@ -1,6 +1,6 @@
 diff -bur HMI/n2t-out/Program.s.txt HMI/US/portrait/n2t-out/Program.s.txt
---- HMI/n2t-out/Program.s.txt	2022-04-01 04:54:12.884151859 +0000
-+++ HMI/US/portrait/n2t-out/Program.s.txt	2022-04-01 04:54:13.372185922 +0000
+--- HMI/n2t-out/Program.s.txt	2022-05-24 14:34:13.723678266 +0000
++++ HMI/US/portrait/n2t-out/Program.s.txt	2022-05-24 14:34:14.167683442 +0000
 @@ -11,6 +11,6 @@
      // dim value
      int dimValue=40
@@ -11,9 +11,9 @@ diff -bur HMI/n2t-out/Program.s.txt HMI/US/portrait/n2t-out/Program.s.txt
 +    //lcd_dev fffb 0002 0000 0020
      page pageStartup
 diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
---- HMI/n2t-out/cardEntities.txt	2022-04-01 04:54:12.888152138 +0000
-+++ HMI/US/portrait/n2t-out/cardEntities.txt	2022-04-01 04:54:13.372185922 +0000
-@@ -62,6 +62,26 @@
+--- HMI/n2t-out/cardEntities.txt	2022-05-24 14:34:13.723678266 +0000
++++ HMI/US/portrait/n2t-out/cardEntities.txt	2022-05-24 14:34:14.171683489 +0000
+@@ -62,6 +62,16 @@
              vis bText4,0
              vis hSlider4,0
              vis nNum4,0
@@ -27,20 +27,18 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            vis bText5,0
 +            vis hSlider5,0
 +            vis nNum5,0
-
+             vis bPrev,0
+             vis bNext,0
          
- Variable (string) strCommand
-     Attributes
-@@ -117,6 +137,30 @@
+@@ -119,6 +129,18 @@
          Text          : 
-         Max. Text Size: 70
+         Max. Text Size: 80
      
 +Variable (string) entn5
 +    Attributes
 +        Scope         : local
 +        Text          : 
-+        Max. Text Size: 70
-+    
++        Max. Text Size: 80
 +    
 +Variable (string) type5
 +    Attributes
@@ -51,7 +49,7 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
  Number nNum1
      Attributes
          Scope                               : local
-@@ -153,6 +197,24 @@
+@@ -155,6 +177,15 @@
          Associated Keyboard                 : none
          Value                               : 0
      
@@ -64,11 +62,10 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +        Associated Keyboard                 : none
 +        Value                               : 0
 +    
- 
  Text tHeading
      Attributes
          Scope                               : local
-@@ -283,6 +345,46 @@
+@@ -285,6 +316,26 @@
          Text                                : 
          Max. Text Size                      : 50
      
@@ -92,11 +89,10 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +        Text                                : î°
 +        Max. Text Size                      : 5
 +    
-  
  Picture p0
      Attributes
          Scope                               : local
-@@ -402,6 +504,62 @@
+@@ -404,6 +455,34 @@
              prints tSend.txt,0
              prints crcval,2
          
@@ -120,7 +116,7 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            btlen tSend.txt,sys0
 +            crcrest 1,0xffff // reset CRC
 +            crcputh 55 bb
-+            crcputs sys0,1
++            crcputs sys0,2
 +            crcputs tSend.txt,0
 +            //send cmd
 +            printh 55 bb
@@ -128,11 +124,10 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            prints tSend.txt,0
 +            prints crcval,2
 +        
-        
  Button bDown1
      Attributes
          Scope                               : local
-@@ -857,6 +1015,206 @@
+@@ -861,6 +940,106 @@
              prints tSend.txt,0
              prints crcval,2
          
@@ -153,7 +148,7 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            btlen tSend.txt,sys0
 +            crcrest 1,0xffff // reset CRC
 +            crcputh 55 bb
-+            crcputs sys0,1
++            crcputs sys0,2
 +            crcputs tSend.txt,0
 +            //send cmd
 +            printh 55 bb
@@ -178,7 +173,7 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            btlen tSend.txt,sys0
 +            crcrest 1,0xffff // reset CRC
 +            crcputh 55 bb
-+            crcputs sys0,1
++            crcputs sys0,2
 +            crcputs tSend.txt,0
 +            //send cmd
 +            printh 55 bb
@@ -203,7 +198,7 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            btlen tSend.txt,sys0
 +            crcrest 1,0xffff // reset CRC
 +            crcputh 55 bb
-+            crcputs sys0,1
++            crcputs sys0,2
 +            crcputs tSend.txt,0
 +            //send cmd
 +            printh 55 bb
@@ -218,8 +213,8 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +        Disable release event after dragging: 0
 +        Send Component ID                   : disabled
 +        State                               : unpressed
-+        Text                                : newtxt
-+        Max. Text Size                      : 10
++        Text                                : 
++        Max. Text Size                      : 20
 +    
 +    Events
 +        Touch Press Event
@@ -228,7 +223,7 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            btlen tSend.txt,sys0
 +            crcrest 1,0xffff // reset CRC
 +            crcputh 55 bb
-+            crcputs sys0,1
++            crcputs sys0,2
 +            crcputs tSend.txt,0
 +            //send cmd
 +            printh 55 bb
@@ -236,11 +231,10 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            prints tSend.txt,0
 +            prints crcval,2
 +        
-       
  Dual-state Button btOnOff1
      Attributes
          Scope                               : local
-@@ -965,6 +1323,60 @@
+@@ -969,6 +1148,33 @@
              prints tSend.txt,0
              prints crcval,2
          
@@ -263,7 +257,7 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            btlen tSend.txt,sys0
 +            crcrest 1,0xffff // reset CRC
 +            crcputh 55 bb
-+            crcputs sys0,1
++            crcputs sys0,2
 +            crcputs tSend.txt,0
 +            //send cmd
 +            printh 55 bb
@@ -271,11 +265,10 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +            prints tSend.txt,0
 +            prints crcval,2
 +        
-
  Hotspot mSpecial
      Attributes
          Scope                               : local
-@@ -1070,6 +1482,50 @@
+@@ -1074,6 +1280,28 @@
                  page popupLight
              }
          
@@ -300,12 +293,15 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +                //popupLight.tEntity.txt=tEntity5.txt
 +                page popupLight
 +            }
++            if(type5.txt=="fan")
++            {
++                page popupFan
++            }
 +        
-
- Timer tmSerial
+ Hotspot mSwipeNext
      Attributes
-         Scope      : local
-@@ -1642,6 +2098,250 @@
+         Scope                               : local
+@@ -1892,6 +2120,169 @@
                                              covx tTmp.txt,sys0,0,0
                                              hSlider4.maxval=sys0
                                          }
@@ -346,34 +342,61 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +                                            vis bText5,0
 +                                            vis hSlider5,0
 +                                            vis nNum5,0
-+                                        }
-+                                        if(type5.txt=="light")
-+                                        {
-+                                            vis bUp5,0
-+                                            vis bStop5,0
-+                                            vis bDown5,0
-+                                            vis btOnOff5,1
-+                                            vis bText5,0
-+                                            vis hSlider5,0
-+                                            vis nNum5,0
 +                                            // get Button State (optional Value)
-+                                            spstr strCommand.txt,tTmp.txt,"~",32
-+                                            covx tTmp.txt,sys0,0,0
-+                                            btOnOff5.val=sys0
++                                            spstr strCommand.txt,tId.txt,"~",32
++                                            // up button
++                                            spstr tId.txt,tTmp.txt,"|",3
++                                            if(tTmp.txt=="disable")
++                                            {
++                                                bUp5.pco=27501
++                                                spstr tId.txt,bUp5.txt,"|",0
++                                                tsw bUp5,0
++                                            }else if(tTmp.txt=="enable")
++                                            {
++                                                bUp5.pco=65535
++                                                spstr tId.txt,bUp5.txt,"|",0
++                                                tsw bUp5,1
++                                            }
++                                            // stop button
++                                            spstr tId.txt,tTmp.txt,"|",4
++                                            if(tTmp.txt=="disable")
++                                            {
++                                                bStop5.pco=27501
++                                                spstr tId.txt,bStop5.txt,"|",1
++                                                tsw bStop5,0
++                                            }else if(tTmp.txt=="enable")
++                                            {
++                                                bStop5.pco=65535
++                                                spstr tId.txt,bStop5.txt,"|",1
++                                                tsw bStop5,1
++                                            }
++                                            // down button
++                                            spstr tId.txt,tTmp.txt,"|",5
++                                            if(tTmp.txt=="disable")
++                                            {
++                                                bDown5.pco=27501
++                                                spstr tId.txt,bDown5.txt,"|",2
++                                                tsw bDown5,0
++                                            }else if(tTmp.txt=="enable")
++                                            {
++                                                bDown5.pco=65535
++                                                spstr tId.txt,bDown5.txt,"|",2
++                                                tsw bDown5,1
++                                            }
 +                                        }
-+                                        if(type5.txt=="switch")
++                                        if(type5.txt=="light"||type5.txt=="switch"||type5.txt=="fan")
 +                                        {
-+                                            vis bUp5,0
-+                                            vis bStop5,0
-+                                            vis bDown5,0
-+                                            vis btOnOff5,1
-+                                            vis bText5,0
-+                                            vis hSlider5,0
-+                                            vis nNum5,0
-+                                            // get Button State (optional Value)
-+                                            spstr strCommand.txt,tTmp.txt,"~",32
-+                                            covx tTmp.txt,sys0,0,0
-+                                            btOnOff5.val=sys0
++                                          vis bUp5,0
++                                          vis bStop5,0
++                                          vis bDown5,0
++                                          vis btOnOff5,1
++                                          vis bText5,0
++                                          vis hSlider5,0
++                                          vis nNum5,0
++                                          // get Button State (optional Value)
++                                          spstr strCommand.txt,tTmp.txt,"~",32
++                                          covx tTmp.txt,sys0,0,0
++                                          btOnOff5.val=sys0
 +                                        }
 +                                        if(type5.txt=="text")
 +                                        {
@@ -431,10 +454,24 @@ diff -bur HMI/n2t-out/cardEntities.txt HMI/US/portrait/n2t-out/cardEntities.txt
 +                                            covx tTmp.txt,sys0,0,0
 +                                            hSlider5.maxval=sys0
 +                                        }
-
+                                     }
+                                     if(tInstruction.txt=="pageType")
+                                     {
+diff -bur HMI/n2t-out/cardQR.txt HMI/US/portrait/n2t-out/cardQR.txt
+--- HMI/n2t-out/cardQR.txt	2022-05-24 14:34:13.723678266 +0000
++++ HMI/US/portrait/n2t-out/cardQR.txt	2022-05-24 14:34:14.167683442 +0000
+@@ -34,7 +34,7 @@
+     Attributes
+         Scope         : local
+         Text          : 
+-        Max. Text Size: 275
++        Max. Text Size: 270
+     
+ Variable (string) entn
+     Attributes
 diff -bur HMI/n2t-out/pageStartup.txt HMI/US/portrait/n2t-out/pageStartup.txt
---- HMI/n2t-out/pageStartup.txt	2022-04-01 04:54:12.884151859 +0000
-+++ HMI/US/portrait/n2t-out/pageStartup.txt	2022-04-01 04:54:13.372185922 +0000
+--- HMI/n2t-out/pageStartup.txt	2022-05-24 14:34:13.723678266 +0000
++++ HMI/US/portrait/n2t-out/pageStartup.txt	2022-05-24 14:34:14.167683442 +0000
 @@ -142,7 +142,7 @@
          Disable release event after dragging: 0
          Send Component ID                   : disabled
@@ -453,3 +490,29 @@ diff -bur HMI/n2t-out/pageStartup.txt HMI/US/portrait/n2t-out/pageStartup.txt
              //send calc crc
              btlen tSend.txt,sys0
              crcrest 1,0xffff // reset CRC
+diff -bur HMI/n2t-out/screensaver.txt HMI/US/portrait/n2t-out/screensaver.txt
+--- HMI/n2t-out/screensaver.txt	2022-05-24 14:34:13.723678266 +0000
++++ HMI/US/portrait/n2t-out/screensaver.txt	2022-05-24 14:34:14.167683442 +0000
+@@ -455,22 +455,6 @@
+                                             vis tMainIconAlt,1
+                                             vis tMRIcon,1
+                                             vis tMR,1
+-                                            vis tForecast1,0
+-                                            vis tF1Icon,0
+-                                            vis tForecast1Val,0
+-                                            //move forecast values to the right
+-                                            tForecast4.txt=tForecast3.txt
+-                                            tForecast3.txt=tForecast2.txt
+-                                            tForecast2.txt=tForecast1.txt
+-                                            tForecast4Val.txt=tForecast3Val.txt
+-                                            tForecast3Val.txt=tForecast2Val.txt
+-                                            tForecast2Val.txt=tForecast1Val.txt
+-                                            tF4Icon.txt=tF3Icon.txt
+-                                            tF3Icon.txt=tF2Icon.txt
+-                                            tF2Icon.txt=tF1Icon.txt
+-                                            tF4Icon.pco=tF3Icon.pco
+-                                            tF3Icon.pco=tF2Icon.pco
+-                                            tF2Icon.pco=tF1Icon.pco
+                                         }
+                                         //tMR
+                                         spstr strCommand.txt,tMR.txt,"~",16

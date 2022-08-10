@@ -7,7 +7,7 @@ head = sharedhead + """
 """ + navigation
 print(head)
 start = 3
-for i in range(1,6):
+for i in range(1,5):
     idxstart = start + (i-1)*6
     item = f"""
               // get Type
@@ -48,22 +48,55 @@ for i in range(1,6):
                 vis bText{i},0
                 vis hSlider{i},0
                 vis nNum{i},0
-              }}
-              if(type{i}.txt=="light")
-              {{
-                vis bUp{i},0
-                vis bStop{i},0
-                vis bDown{i},0
-                vis btOnOff{i},1
-                vis bText{i},0
-                vis hSlider{i},0
-                vis nNum{i},0
                 // get Button State (optional Value)
-                spstr strCommand.txt,tTmp.txt,"~",{idxstart+5}
-                covx tTmp.txt,sys0,0,0
-                btOnOff{i}.val=sys0
+                spstr strCommand.txt,tId.txt,"~",{idxstart+5}              
+
+                // up button
+                spstr tId.txt,tTmp.txt,"|",3
+                if(tTmp.txt=="disable")
+                {{
+                  bUp{i}.pco=27501
+                  spstr tId.txt,bUp{i}.txt,"|",0
+                  tsw bUp{i},0
+                }}
+                else if(tTmp.txt=="enable")
+                {{
+                  bUp{i}.pco=65535
+                  spstr tId.txt,bUp{i}.txt,"|",0
+                  tsw bUp{i},1
+                }}
+
+                // stop button
+                spstr tId.txt,tTmp.txt,"|",4
+                if(tTmp.txt=="disable")
+                {{
+                  bStop{i}.pco=27501
+                  spstr tId.txt,bStop{i}.txt,"|",1
+                  tsw bStop{i},0
+                }}
+                else if(tTmp.txt=="enable")
+                {{
+                  bStop{i}.pco=65535
+                  spstr tId.txt,bStop{i}.txt,"|",1
+                  tsw bStop{i},1
+                }}
+
+                // down button
+                spstr tId.txt,tTmp.txt,"|",5
+                if(tTmp.txt=="disable")
+                {{
+                  bDown{i}.pco=27501
+                  spstr tId.txt,bDown{i}.txt,"|",2
+                  tsw bDown{i},0
+                }}
+                else if(tTmp.txt=="enable")
+                {{
+                  bDown{i}.pco=65535
+                  spstr tId.txt,bDown{i}.txt,"|",2
+                  tsw bDown{i},1
+                }}
               }}
-              if(type{i}.txt=="switch")
+              if(type{i}.txt=="light"||type{i}.txt=="switch"||type{i}.txt=="fan")
               {{
                 vis bUp{i},0
                 vis bStop{i},0

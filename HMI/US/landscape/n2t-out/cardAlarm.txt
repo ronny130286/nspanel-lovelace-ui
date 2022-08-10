@@ -12,6 +12,7 @@ Page cardAlarm
     
     Events
         Preinitialize Event
+            dim=dimValueNormal
             vis p0,0
             vis tSend,0
             vis tInstruction,0
@@ -32,7 +33,29 @@ Page cardAlarm
             vis b8,0
             vis b9,0
             vis b10,0
+            vis b11,0
             vis tCode,0
+            vis bPrev,0
+            vis bNext,0
+            cardAlarm.bco=defaultBcoColor
+            for(sys0=0;sys0<40;sys0++)
+            {
+                if(b[sys0].type==98||b[sys0].type==116)
+                {
+                    b[sys0].bco=defaultBcoColor
+                    b[sys0].pco=defaultFontColor
+                }
+            }
+            if(defaultBcoColor==0)
+            {
+                tCode.bco=6371
+                tCode.pco=40179
+            }
+            if(defaultBcoColor==6371)
+            {
+                tCode.bco=10565
+                tCode.pco=40179
+            }
         
 Variable (string) strCommand
     Attributes
@@ -44,7 +67,7 @@ Variable (string) entn
     Attributes
         Scope         : local
         Text          : 
-        Max. Text Size: 50
+        Max. Text Size: 80
     
 Variable (string) tSend
     Attributes
@@ -75,6 +98,12 @@ Variable (string) va4
         Scope         : local
         Text          : 
         Max. Text Size: 20
+    
+Variable (string) vaAddBtn
+    Attributes
+        Scope         : local
+        Text          : 
+        Max. Text Size: 80
     
 Text tTmp
     Attributes
@@ -150,7 +179,7 @@ Button bNext
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -182,7 +211,7 @@ Button bPrev
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -323,12 +352,32 @@ Button b9
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         State                               : unpressed
-        Text                                : 0
+        Text                                : 
         Max. Text Size                      : 10
     
     Events
         Touch Press Event
-            tCode.txt=tCode.txt+"0"
+            // event,buttonPress2,entn,arm1,tCode
+            tSend.txt="event,buttonPress2,"
+            if(vaAddBtn.txt!="")
+            {
+                tSend.txt+=vaAddBtn.txt+",button"
+            }else
+            {
+                tSend.txt+=entn.txt+",opnSensorNotify"
+            }
+            //send calc crc
+            btlen tSend.txt,sys0
+            crcrest 1,0xffff // reset CRC
+            crcputh 55 bb
+            crcputs sys0,2
+            crcputs tSend.txt,0
+            //send cmd
+            printh 55 bb
+            prints sys0,2
+            prints tSend.txt,0
+            prints crcval,2
+            tCode.txt=""
         
 Button b10
     Attributes
@@ -337,12 +386,12 @@ Button b10
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         State                               : unpressed
-        Text                                : CLR
+        Text                                : 0
         Max. Text Size                      : 10
     
     Events
         Touch Press Event
-            tCode.txt=""
+            tCode.txt=tCode.txt+"0"
         
 Button arm1
     Attributes
@@ -365,7 +414,7 @@ Button arm1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -395,7 +444,7 @@ Button arm3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -425,7 +474,7 @@ Button arm2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -455,7 +504,7 @@ Button arm4
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -463,6 +512,53 @@ Button arm4
             prints tSend.txt,0
             prints crcval,2
             tCode.txt=""
+        
+Button b11
+    Attributes
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        State                               : unpressed
+        Text                                : CLR
+        Max. Text Size                      : 10
+    
+    Events
+        Touch Press Event
+            tCode.txt=""
+        
+Hotspot mSwipeNext
+    Attributes
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+    
+    Events
+        Touch Press Event
+            click bNext,1
+        
+Hotspot mSwipeUp
+    Attributes
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+    
+    Events
+        Touch Press Event
+            click bPrev,1
+        
+Hotspot mSwipePrev
+    Attributes
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+    
+    Events
+        Touch Press Event
+            click bPrev,1
         
 Timer tmSerial
     Attributes
@@ -525,25 +621,33 @@ Timer tmSerial
                                         if(tTmp.txt=="0")
                                         {
                                             vis bPrev,0
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,1
+                                            tsw mSwipeUp,0
                                             bPrev.txt="î°"
                                         }
                                         if(tTmp.txt=="2")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,1
                                             bPrev.txt="î¶"
                                         }
                                         spstr tId.txt,tTmp.txt,"|",1
                                         if(tTmp.txt=="0")
                                         {
                                             vis bNext,0
+                                            tsw mSwipeNext,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bNext,1
+                                            tsw mSwipeNext,1
                                             bNext.txt="î³"
                                         }
                                         //text arm1
@@ -599,6 +703,7 @@ Timer tmSerial
                                             vis b8,1
                                             vis b9,1
                                             vis b10,1
+                                            vis b11,1
                                             vis tCode,1
                                         }else
                                         {
@@ -613,6 +718,7 @@ Timer tmSerial
                                             vis b8,0
                                             vis b9,0
                                             vis b10,0
+                                            vis b11,0
                                             vis tCode,0
                                         }
                                         //flashing status
@@ -623,6 +729,15 @@ Timer tmSerial
                                         }else
                                         {
                                             tmFlash.en=0
+                                        }
+                                        // extra button
+                                        spstr strCommand.txt,b9.txt,"~",15
+                                        if(b9.txt!="")
+                                        {
+                                            vis b9,1
+                                            spstr strCommand.txt,tTmp.txt,"~",16
+                                            covx tTmp.txt,b9.pco,0,0
+                                            spstr strCommand.txt,vaAddBtn.txt,"~",17
                                         }
                                     }
                                     if(tInstruction.txt=="time")
@@ -640,7 +755,22 @@ Timer tmSerial
                                         // get value
                                         spstr strCommand.txt,tTmp.txt,"~",1
                                         covx tTmp.txt,dimValue,0,0
-                                        dim=dimValue
+                                        // get value normal
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        covx tTmp.txt,dimValueNormal,0,0
+                                        dim=dimValueNormal
+                                        // get background color
+                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultBcoColor,0,0
+                                        }
+                                        // get font color
+                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultFontColor,0,0
+                                        }
                                     }
                                     if(tInstruction.txt=="timeout")
                                     {
@@ -702,6 +832,10 @@ Timer tmSerial
                                         {
                                             page cardAlarm
                                         }
+                                        if(tId.txt=="cardQR")
+                                        {
+                                            page cardQR
+                                        }
                                     }
                                     // end of user code
                                     udelete payloadLength-1
@@ -735,7 +869,7 @@ Timer tmSleep
                     btlen tSend.txt,sys0
                     crcrest 1,0xffff // reset CRC
                     crcputh 55 bb
-                    crcputs sys0,1
+                    crcputs sys0,2
                     crcputs tSend.txt,0
                     //send cmd
                     printh 55 bb

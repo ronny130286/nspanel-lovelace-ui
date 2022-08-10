@@ -20,40 +20,64 @@ Page cardMedia
     
     Events
         Preinitialize Event
+            dim=dimValueNormal
             vis p0,0
             vis tSend,0
             vis tInstruction,0
             vis tTmp,0
             vis tId,0
             vis t5,0
-            //vis nPageDisp,0
+            vis bPrev,0
+            vis bNext,0
+            cardMedia.bco=defaultBcoColor
+            for(sys0=0;sys0<34;sys0++)
+            {
+                if(b[sys0].type==98||b[sys0].type==116)
+                {
+                    b[sys0].bco=defaultBcoColor
+                    b[sys0].pco=defaultFontColor
+                }
+            }
+            if(defaultBcoColor==0)
+            {
+                hVolume.pic=14
+                hVolume.pic1=13
+                hVolume.pic2=15
+            }
         
 Variable (string) strCommand
     Attributes
         ID            : 7
         Scope         : local
         Text          : 
-        Max. Text Size: 500
+        Max. Text Size: 750
     
 Variable (string) entn
     Attributes
         ID            : 17
         Scope         : local
         Text          : 
-        Max. Text Size: 50
+        Max. Text Size: 80
     
 Variable (string) vaSpeakerList
     Attributes
         ID            : 26
         Scope         : local
         Text          : 
-        Max. Text Size: 200
+        Max. Text Size: 400
     
 Variable (int32) vaSpeakerPos
     Attributes
         ID   : 27
         Scope: local
         Value: 0
+    
+Variable (string) vaMenu
+    Attributes
+        ID            : 33
+        Scope         : local
+        Text          : 
+        Max. Text Size: 50
     
 Text tSend
     Attributes
@@ -274,7 +298,7 @@ Text t2
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 238
-        y coordinate                        : 197
+        y coordinate                        : 163
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -306,7 +330,7 @@ Text t2
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -323,7 +347,7 @@ Text tPlayPause
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 135
-        y coordinate                        : 197
+        y coordinate                        : 163
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -355,7 +379,7 @@ Text tPlayPause
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -372,7 +396,7 @@ Text t0
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 28
-        y coordinate                        : 197
+        y coordinate                        : 163
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -404,7 +428,7 @@ Text t0
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -442,6 +466,24 @@ Text tIcon
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
     
+    Events
+        Touch Release Event
+            if(vaMenu.txt!="")
+            {
+                tSend.txt="event,buttonPress2,"+vaMenu.txt+",button"
+                //send calc crc
+                btlen tSend.txt,sys0
+                crcrest 1,0xffff // reset CRC
+                crcputh 55 bb
+                crcputs sys0,2
+                crcputs tSend.txt,0
+                //send cmd
+                printh 55 bb
+                prints sys0,2
+                prints tSend.txt,0
+                prints crcval,2
+            }
+        
 Text t1
     Attributes
         ID                                  : 21
@@ -450,8 +492,8 @@ Text t1
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 12
-        y coordinate                        : 301
+        x coordinate                        : 79
+        y coordinate                        : 300
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -474,7 +516,7 @@ Text t1
     
     Events
         Touch Press Event
-            hVolume.val=hVolume.val-5
+            hVolume.val=hVolume.val-1
             // event,buttonPress2,internalNameEntity,volumeSlider,50
             //craft command
             tSend.txt="event,buttonPress2,"+entn.txt+",volumeSlider,"
@@ -484,7 +526,7 @@ Text t1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -500,8 +542,8 @@ Text t3
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 263
-        y coordinate                        : 299
+        x coordinate                        : 189
+        y coordinate                        : 300
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -524,7 +566,7 @@ Text t3
     
     Events
         Touch Press Event
-            hVolume.val=hVolume.val+5
+            hVolume.val=hVolume.val+1
             // event,buttonPress2,internalNameEntity,volumeSlider,50
             //craft command
             tSend.txt="event,buttonPress2,"+entn.txt+",volumeSlider,"
@@ -534,7 +576,7 @@ Text t3
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -613,7 +655,7 @@ Text tSpeaker
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -704,7 +746,7 @@ Text t5
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -737,10 +779,10 @@ Slider hVolume
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 67
-        y coordinate                        : 304
-        Width                               : 190
-        Height                              : 43
+        x coordinate                        : 36
+        y coordinate                        : 238
+        Width                               : 250
+        Height                              : 44
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -767,7 +809,7 @@ Slider hVolume
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -814,7 +856,7 @@ Button bNext
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -868,13 +910,73 @@ Button bPrev
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
             prints sys0,2
             prints tSend.txt,0
             prints crcval,2
+        
+Hotspot mSwipeNext
+    Attributes
+        ID                                  : 30
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 311
+        y coordinate                        : 0
+        Width                               : 8
+        Height                              : 470
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+    
+    Events
+        Touch Press Event
+            click bNext,1
+        
+Hotspot mSwipeUp
+    Attributes
+        ID                                  : 31
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 10
+        y coordinate                        : 0
+        Width                               : 300
+        Height                              : 9
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+    
+    Events
+        Touch Press Event
+            click bPrev,1
+        
+Hotspot mSwipePrev
+    Attributes
+        ID                                  : 32
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 0
+        y coordinate                        : 0
+        Width                               : 8
+        Height                              : 470
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+    
+    Events
+        Touch Press Event
+            click bPrev,1
         
 Timer tmSerial
     Attributes
@@ -938,25 +1040,33 @@ Timer tmSerial
                                         if(tTmp.txt=="0")
                                         {
                                             vis bPrev,0
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,1
+                                            tsw mSwipeUp,0
                                             bPrev.txt="î°"
                                         }
                                         if(tTmp.txt=="2")
                                         {
                                             vis bPrev,1
+                                            tsw mSwipePrev,0
+                                            tsw mSwipeUp,1
                                             bPrev.txt="î¶"
                                         }
                                         spstr tId.txt,tTmp.txt,"|",1
                                         if(tTmp.txt=="0")
                                         {
                                             vis bNext,0
+                                            tsw mSwipeNext,0
                                         }
                                         if(tTmp.txt=="1")
                                         {
                                             vis bNext,1
+                                            tsw mSwipeNext,1
                                             bNext.txt="î³"
                                         }
                                         //entity name
@@ -999,6 +1109,8 @@ Timer tmSerial
                                             vis t5,1
                                             covx tTmp.txt,t5.pco,0,0
                                         }
+                                        //tIconBtnEntityName
+                                        spstr strCommand.txt,vaMenu.txt,"~",12
                                     }
                                     if(tInstruction.txt=="time")
                                     {
@@ -1015,7 +1127,22 @@ Timer tmSerial
                                         // get value
                                         spstr strCommand.txt,tTmp.txt,"~",1
                                         covx tTmp.txt,dimValue,0,0
-                                        dim=dimValue
+                                        // get value normal
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        covx tTmp.txt,dimValueNormal,0,0
+                                        dim=dimValueNormal
+                                        // get background color
+                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultBcoColor,0,0
+                                        }
+                                        // get font color
+                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultFontColor,0,0
+                                        }
                                     }
                                     if(tInstruction.txt=="timeout")
                                     {
@@ -1077,6 +1204,10 @@ Timer tmSerial
                                         {
                                             page cardAlarm
                                         }
+                                        if(tId.txt=="cardQR")
+                                        {
+                                            page cardQR
+                                        }
                                     }
                                     // end of user code
                                     udelete payloadLength-1
@@ -1120,7 +1251,7 @@ Timer tmSleep
                     btlen tSend.txt,sys0
                     crcrest 1,0xffff // reset CRC
                     crcputh 55 bb
-                    crcputs sys0,1
+                    crcputs sys0,2
                     crcputs tSend.txt,0
                     //send cmd
                     printh 55 bb

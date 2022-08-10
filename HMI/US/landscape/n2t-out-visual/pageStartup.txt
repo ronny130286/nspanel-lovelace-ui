@@ -296,7 +296,7 @@ Text tMsg1
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 52
+        x coordinate                        : 57
         y coordinate                        : 223
         Width                               : 375
         Height                              : 30
@@ -326,7 +326,7 @@ Text tMsg2
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 35
+        x coordinate                        : 40
         y coordinate                        : 256
         Width                               : 408
         Height                              : 25
@@ -356,7 +356,7 @@ Text tMsg3
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 35
+        x coordinate                        : 40
         y coordinate                        : 278
         Width                               : 408
         Height                              : 25
@@ -402,7 +402,7 @@ Text tVersion
         Horizontal Alignment                : center
         Vertical Alignment                  : center
         Input Type                          : character
-        Text                                : 31
+        Text                                : 39
         Max. Text Size                      : 10
         Word wrap                           : disabled
         Horizontal Spacing                  : 0
@@ -418,8 +418,8 @@ Picture p0
         Opacity                             : 127
         x coordinate                        : 0
         y coordinate                        : 0
-        Width                               : 479
-        Height                              : 319
+        Width                               : 480
+        Height                              : 320
         Effect                              : load
         Effect Priority                     : 0
         Effect Time                         : 300
@@ -467,7 +467,7 @@ Button bSendStartup
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -483,7 +483,7 @@ Hotspot mSpinner
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 164
+        x coordinate                        : 169
         y coordinate                        : 49
         Width                               : 140
         Height                              : 140
@@ -568,6 +568,22 @@ Timer tmSerial
                                         // get value
                                         spstr strCommand.txt,tTmp.txt,"~",1
                                         covx tTmp.txt,dimValue,0,0
+                                        // get value normal
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        covx tTmp.txt,dimValueNormal,0,0
+                                        dim=dimValueNormal
+                                        // get background color
+                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultBcoColor,0,0
+                                        }
+                                        // get font color
+                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultFontColor,0,0
+                                        }
                                     }
                                     if(tInstruction.txt=="timeout")
                                     {
@@ -625,6 +641,10 @@ Timer tmSerial
                                         {
                                             page cardAlarm
                                         }
+                                        if(tId.txt=="cardQR")
+                                        {
+                                            page cardQR
+                                        }
                                     }
                                     // end of user code
                                     udelete payloadLength-1
@@ -647,7 +667,7 @@ Timer tmSpinner
     
     Events
         Timer Event
-            xpic mSpinner.x,mSpinner.y,spinner_w.val,140,frame_ptr.val,0,11 // draw the current frame
+            xpic mSpinner.x,mSpinner.y,spinner_w.val,140,frame_ptr.val,0,9 // draw the current frame
             frame_ptr.val+=spinner_w.val%frapic_w.val // advance the pointer to the next frame in the pic resource and roll over at the end
             doevents // finish drawing before next timer event triggers
             if(frame_ptr.val==1820)

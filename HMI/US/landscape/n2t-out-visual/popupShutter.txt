@@ -20,15 +20,19 @@ Page popupShutter
     
     Events
         Preinitialize Event
+            dim=dimValueNormal
             //get entitiy name
             tEntity.txt=pageIcons.tTmp1.txt
             //get entity id
             entn.txt=pageIcons.tTmp2.txt
             vis p0,0
             vis tSend,0
-            vis tTmp,0
-            vis tInstruction,0
-            vis tId,0
+            vis tPosHeading,0
+            vis hPosition,0
+            vis hTilt,0
+            vis bTLeft,0
+            vis bTStop,0
+            vis bTRight,0
             //page open event
             // event,pageOpenDetail,typeOfPage,tEntityName
             // craft command
@@ -37,27 +41,82 @@ Page popupShutter
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
             prints sys0,2
             prints tSend.txt,0
             prints crcval,2
+            popupShutter.bco=defaultBcoColor
+            b0.bco=defaultBcoColor
+            tIcon1.bco=defaultBcoColor
+            tEntity.bco=defaultBcoColor
+            tInfo1.bco=defaultBcoColor
+            tPosHeading.bco=defaultBcoColor
+            tTiltHeading.bco=defaultBcoColor
+            bUp1.bco=defaultBcoColor
+            bStop1.bco=defaultBcoColor
+            bDown1.bco=defaultBcoColor
+            bTLeft.bco=defaultBcoColor
+            bTStop.bco=defaultBcoColor
+            bTRight.bco=defaultBcoColor
+            b0.pco=defaultFontColor
+            tIcon1.pco=defaultFontColor
+            tEntity.pco=defaultFontColor
+            tInfo1.pco=defaultFontColor
+            tPosHeading.pco=defaultFontColor
+            tTiltHeading.pco=defaultFontColor
+            bUp1.pco=defaultFontColor
+            bStop1.pco=defaultFontColor
+            bDown1.pco=defaultFontColor
+            bTLeft.pco=defaultFontColor
+            bTStop.pco=defaultFontColor
+            bTRight.pco=defaultFontColor
+            if(defaultBcoColor==0)
+            {
+                hTilt.pic=14
+                hTilt.pic1=13
+                hTilt.pic2=15
+                hPosition.pic=14
+                hPosition.pic1=13
+                hPosition.pic2=15
+            }
         
 Variable (string) strCommand
     Attributes
-        ID            : 10
+        ID            : 9
         Scope         : local
         Text          : 
-        Max. Text Size: 50
+        Max. Text Size: 500
     
 Variable (string) entn
     Attributes
+        ID            : 15
+        Scope         : local
+        Text          : 
+        Max. Text Size: 80
+    
+Variable (string) tInstruction
+    Attributes
+        ID            : 17
+        Scope         : local
+        Text          : 
+        Max. Text Size: 20
+    
+Variable (string) tId
+    Attributes
         ID            : 18
         Scope         : local
-        Text          : newtxt
-        Max. Text Size: 50
+        Text          : 
+        Max. Text Size: 20
+    
+Variable (string) tTmp
+    Attributes
+        ID            : 19
+        Scope         : local
+        Text          : 
+        Max. Text Size: 80
     
 Text tEntity
     Attributes
@@ -67,8 +126,8 @@ Text tEntity
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 80
-        y coordinate                        : 108
+        x coordinate                        : 81
+        y coordinate                        : 48
         Width                               : 195
         Height                              : 30
         Effect                              : load
@@ -97,8 +156,8 @@ Text tIcon1
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 27
-        y coordinate                        : 109
+        x coordinate                        : 28
+        y coordinate                        : 63
         Width                               : 45
         Height                              : 30
         Effect                              : load
@@ -127,7 +186,7 @@ Text tSend
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 15
+        x coordinate                        : 16
         y coordinate                        : 0
         Width                               : 348
         Height                              : 22
@@ -149,107 +208,17 @@ Text tSend
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
     
-Text tTmp
+Text tPosHeading
     Attributes
-        ID                                  : 6
+        ID                                  : 14
         Scope                               : local
         Dragging                            : 0
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 421
-        y coordinate                        : 277
-        Width                               : 34
-        Height                              : 30
-        Effect                              : load
-        Effect Priority                     : 0
-        Effect Time                         : 300
-        Fill                                : solid color
-        Style                               : flat
-        Associated Keyboard                 : none
-        Font ID                             : 0
-        Back. Color                         : 65535
-        Font Color                          : 0
-        Horizontal Alignment                : center
-        Vertical Alignment                  : center
-        Input Type                          : character
-        Text                                : 
-        Max. Text Size                      : 10
-        Word wrap                           : disabled
-        Horizontal Spacing                  : 0
-        Vertical Spacing                    : 0
-    
-Text tInstruction
-    Attributes
-        ID                                  : 11
-        Scope                               : local
-        Dragging                            : 0
-        Disable release event after dragging: 0
-        Send Component ID                   : disabled
-        Opacity                             : 127
-        x coordinate                        : 15
-        y coordinate                        : 290
-        Width                               : 100
-        Height                              : 30
-        Effect                              : load
-        Effect Priority                     : 0
-        Effect Time                         : 300
-        Fill                                : solid color
-        Style                               : flat
-        Associated Keyboard                 : none
-        Font ID                             : 0
-        Back. Color                         : 65535
-        Font Color                          : 0
-        Horizontal Alignment                : center
-        Vertical Alignment                  : center
-        Input Type                          : character
-        Text                                : 
-        Max. Text Size                      : 20
-        Word wrap                           : disabled
-        Horizontal Spacing                  : 0
-        Vertical Spacing                    : 0
-    
-Text tId
-    Attributes
-        ID                                  : 12
-        Scope                               : local
-        Dragging                            : 0
-        Disable release event after dragging: 0
-        Send Component ID                   : disabled
-        Opacity                             : 127
-        x coordinate                        : 115
-        y coordinate                        : 290
-        Width                               : 100
-        Height                              : 30
-        Effect                              : load
-        Effect Priority                     : 0
-        Effect Time                         : 300
-        Fill                                : solid color
-        Style                               : flat
-        Associated Keyboard                 : none
-        Font ID                             : 0
-        Back. Color                         : 65535
-        Font Color                          : 0
-        Horizontal Alignment                : center
-        Vertical Alignment                  : center
-        Input Type                          : character
-        Text                                : 
-        Max. Text Size                      : 20
-        Word wrap                           : disabled
-        Horizontal Spacing                  : 0
-        Vertical Spacing                    : 0
-    
-Text t1
-    Attributes
-        ID                                  : 17
-        Scope                               : local
-        Dragging                            : 0
-        Disable release event after dragging: 0
-        Send Component ID                   : disabled
-        Opacity                             : 127
-        x coordinate                        : 79
-        y coordinate                        : 164
-        Width                               : 100
+        x coordinate                        : 80
+        y coordinate                        : 122
+        Width                               : 188
         Height                              : 30
         Effect                              : load
         Effect Priority                     : 0
@@ -260,11 +229,71 @@ Text t1
         Font ID                             : 0
         Back. Color                         : 6371
         Font Color                          : 65535
-        Horizontal Alignment                : center
+        Horizontal Alignment                : left
         Vertical Alignment                  : center
         Input Type                          : character
         Text                                : Position
-        Max. Text Size                      : 15
+        Max. Text Size                      : 30
+        Word wrap                           : disabled
+        Horizontal Spacing                  : 0
+        Vertical Spacing                    : 0
+    
+Text tInfo1
+    Attributes
+        ID                                  : 16
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 81
+        y coordinate                        : 76
+        Width                               : 195
+        Height                              : 30
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+        Fill                                : solid color
+        Style                               : flat
+        Associated Keyboard                 : none
+        Font ID                             : 0
+        Back. Color                         : 6371
+        Font Color                          : 38066
+        Horizontal Alignment                : left
+        Vertical Alignment                  : center
+        Input Type                          : character
+        Text                                : 
+        Max. Text Size                      : 40
+        Word wrap                           : disabled
+        Horizontal Spacing                  : 0
+        Vertical Spacing                    : 0
+    
+Text tTiltHeading
+    Attributes
+        ID                                  : 20
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 80
+        y coordinate                        : 231
+        Width                               : 191
+        Height                              : 30
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+        Fill                                : solid color
+        Style                               : flat
+        Associated Keyboard                 : none
+        Font ID                             : 0
+        Back. Color                         : 6371
+        Font Color                          : 65535
+        Horizontal Alignment                : left
+        Vertical Alignment                  : center
+        Input Type                          : character
+        Text                                : 
+        Max. Text Size                      : 30
         Word wrap                           : disabled
         Horizontal Spacing                  : 0
         Vertical Spacing                    : 0
@@ -288,14 +317,14 @@ Picture p0
     
 Slider hPosition
     Attributes
-        ID                                  : 16
+        ID                                  : 13
         Scope                               : local
         Dragging                            : 0
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
         x coordinate                        : 80
-        y coordinate                        : 194
+        y coordinate                        : 152
         Width                               : 335
         Height                              : 43
         Effect                              : load
@@ -322,7 +351,51 @@ Slider hPosition
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
+            crcputs tSend.txt,0
+            //send cmd
+            printh 55 bb
+            prints sys0,2
+            prints tSend.txt,0
+            prints crcval,2
+        
+Slider hTilt
+    Attributes
+        ID                                  : 21
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 80
+        y coordinate                        : 261
+        Width                               : 335
+        Height                              : 43
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+        Direction                           : horizontal
+        Fill                                : image
+        Cursor width                        : auto
+        Cursor height                       : 255
+        Back. Picture ID                    : 5
+        Slided Back. Picture ID             : 4
+        Position                            : 50
+        Upper range limit                   : 100
+        Lower range limit                   : 0
+    
+    Events
+        Touch Release Event
+            // event,buttonPress2,internalNameEntity,positionSlider,50
+            //craft command
+            tSend.txt="event,buttonPress2,"+entn.txt+",tiltSlider,"
+            covx hPosition.val,tTmp.txt,0,0
+            tSend.txt+=tTmp.txt
+            //send calc crc
+            btlen tSend.txt,sys0
+            crcrest 1,0xffff // reset CRC
+            crcputh 55 bb
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -338,7 +411,7 @@ Button b0
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 412
+        x coordinate                        : 413
         y coordinate                        : 8
         Width                               : 50
         Height                              : 50
@@ -369,7 +442,7 @@ Button b0
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -379,14 +452,14 @@ Button b0
         
 Button bDown1
     Attributes
-        ID                                  : 13
+        ID                                  : 10
         Scope                               : local
         Dragging                            : 0
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 408
-        y coordinate                        : 96
+        x coordinate                        : 402
+        y coordinate                        : 95
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -416,7 +489,7 @@ Button bDown1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -426,14 +499,14 @@ Button bDown1
         
 Button bStop1
     Attributes
-        ID                                  : 14
+        ID                                  : 11
         Scope                               : local
         Dragging                            : 0
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 356
-        y coordinate                        : 96
+        x coordinate                        : 350
+        y coordinate                        : 95
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -463,7 +536,7 @@ Button bStop1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -473,14 +546,14 @@ Button bStop1
         
 Button bUp1
     Attributes
-        ID                                  : 15
+        ID                                  : 12
         Scope                               : local
         Dragging                            : 0
         Disable release event after dragging: 0
         Send Component ID                   : disabled
         Opacity                             : 127
-        x coordinate                        : 304
-        y coordinate                        : 96
+        x coordinate                        : 298
+        y coordinate                        : 95
         Width                               : 50
         Height                              : 50
         Effect                              : load
@@ -510,7 +583,148 @@ Button bUp1
             btlen tSend.txt,sys0
             crcrest 1,0xffff // reset CRC
             crcputh 55 bb
-            crcputs sys0,1
+            crcputs sys0,2
+            crcputs tSend.txt,0
+            //send cmd
+            printh 55 bb
+            prints sys0,2
+            prints tSend.txt,0
+            prints crcval,2
+        
+Button bTLeft
+    Attributes
+        ID                                  : 22
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 298
+        y coordinate                        : 205
+        Width                               : 50
+        Height                              : 50
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+        Fill                                : solid color
+        Style                               : flat
+        Font ID                             : 1
+        Back. Color                         : 6371
+        Back. Picture ID (Pressed)          : 65535
+        Back. Color (Pressed)               : 14823
+        Font Color (Unpressed)              : 65535
+        Font Color (Pressed)                : 65535
+        Horizontal Alignment                : center
+        Vertical Alignment                  : center
+        State                               : unpressed
+        Text                                : î
+        Max. Text Size                      : 10
+        Word wrap                           : disabled
+        Horizontal Spacing                  : 0
+        Vertical Spacing                    : 0
+    
+    Events
+        Touch Press Event
+            tSend.txt="event,buttonPress2,"+entn.txt+",tiltOpen"
+            //send calc crc
+            btlen tSend.txt,sys0
+            crcrest 1,0xffff // reset CRC
+            crcputh 55 bb
+            crcputs sys0,2
+            crcputs tSend.txt,0
+            //send cmd
+            printh 55 bb
+            prints sys0,2
+            prints tSend.txt,0
+            prints crcval,2
+        
+Button bTStop
+    Attributes
+        ID                                  : 23
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 350
+        y coordinate                        : 205
+        Width                               : 50
+        Height                              : 50
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+        Fill                                : solid color
+        Style                               : flat
+        Font ID                             : 1
+        Back. Color                         : 6371
+        Back. Picture ID (Pressed)          : 65535
+        Back. Color (Pressed)               : 14823
+        Font Color (Unpressed)              : 65535
+        Font Color (Pressed)                : 65535
+        Horizontal Alignment                : center
+        Vertical Alignment                  : center
+        State                               : unpressed
+        Text                                : î
+        Max. Text Size                      : 10
+        Word wrap                           : disabled
+        Horizontal Spacing                  : 0
+        Vertical Spacing                    : 0
+    
+    Events
+        Touch Press Event
+            tSend.txt="event,buttonPress2,"+entn.txt+",tiltStop"
+            //send calc crc
+            btlen tSend.txt,sys0
+            crcrest 1,0xffff // reset CRC
+            crcputh 55 bb
+            crcputs sys0,2
+            crcputs tSend.txt,0
+            //send cmd
+            printh 55 bb
+            prints sys0,2
+            prints tSend.txt,0
+            prints crcval,2
+        
+Button bTRight
+    Attributes
+        ID                                  : 24
+        Scope                               : local
+        Dragging                            : 0
+        Disable release event after dragging: 0
+        Send Component ID                   : disabled
+        Opacity                             : 127
+        x coordinate                        : 402
+        y coordinate                        : 205
+        Width                               : 50
+        Height                              : 50
+        Effect                              : load
+        Effect Priority                     : 0
+        Effect Time                         : 300
+        Fill                                : solid color
+        Style                               : flat
+        Font ID                             : 1
+        Back. Color                         : 6371
+        Back. Picture ID (Pressed)          : 65535
+        Back. Color (Pressed)               : 14823
+        Font Color (Unpressed)              : 65535
+        Font Color (Pressed)                : 65535
+        Horizontal Alignment                : center
+        Vertical Alignment                  : center
+        State                               : unpressed
+        Text                                : î
+        Max. Text Size                      : 10
+        Word wrap                           : disabled
+        Horizontal Spacing                  : 0
+        Vertical Spacing                    : 0
+    
+    Events
+        Touch Press Event
+            tSend.txt="event,buttonPress2,"+entn.txt+",tiltClose"
+            //send calc crc
+            btlen tSend.txt,sys0
+            crcrest 1,0xffff // reset CRC
+            crcputh 55 bb
+            crcputs sys0,2
             crcputs tSend.txt,0
             //send cmd
             printh 55 bb
@@ -520,7 +734,7 @@ Button bUp1
         
 Timer tmSleep
     Attributes
-        ID         : 8
+        ID         : 7
         Scope      : local
         Period (ms): 1000
         Enabled    : yes
@@ -540,7 +754,7 @@ Timer tmSleep
         
 Timer tmSerial
     Attributes
-        ID         : 9
+        ID         : 8
         Scope      : local
         Period (ms): 50
         Enabled    : yes
@@ -590,18 +804,148 @@ Timer tmSerial
                                     ucopy strCommand.txt,4,payloadLength-5,0
                                     // write instruction to tInstuction (debug output, but used as variable here, ui elements will be disabled by default)
                                     spstr strCommand.txt,tInstruction.txt,"~",0
-                                    if(tInstruction.txt=="entityUpdateDetail")
+                                    spstr strCommand.txt,tTmp.txt,"~",1
+                                    if(tInstruction.txt=="entityUpdateDetail"&&tTmp.txt==entn.txt)
                                     {
                                         // get Position value
-                                        spstr strCommand.txt,tTmp.txt,"~",1
-                                        covx tTmp.txt,sys0,0,0
-                                        hPosition.val=sys0
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        if(tTmp.txt=="disable")
+                                        {
+                                            vis tPosHeading,0
+                                            vis hPosition,0
+                                        }else
+                                        {
+                                            covx tTmp.txt,sys0,0,0
+                                            hPosition.val=sys0
+                                            vis tPosHeading,1
+                                            vis hPosition,1
+                                        }
+                                        // set tinfo1 text
+                                        spstr strCommand.txt,tInfo1.txt,"~",3
+                                        // set tPosHeading (localization)
+                                        spstr strCommand.txt,tPosHeading.txt,"~",4
+                                        // set tIcon1
+                                        spstr strCommand.txt,tTmp.txt,"~",5
+                                        if(tTmp.txt!="")
+                                        {
+                                            tIcon1.txt=tTmp.txt
+                                        }
+                                        // set icon bUp
+                                        spstr strCommand.txt,tTmp.txt,"~",9
+                                        if(tTmp.txt=="disable")
+                                        {
+                                            tsw bUp1,0
+                                            spstr strCommand.txt,bUp1.txt,"~",6
+                                            bUp1.pco=27501
+                                        }else if(tTmp.txt=="enable")
+                                        {
+                                            spstr strCommand.txt,bUp1.txt,"~",6
+                                            tsw bUp1,1
+                                            bUp1.pco=65535
+                                        }
+                                        // set icon bStop
+                                        spstr strCommand.txt,tTmp.txt,"~",10
+                                        if(tTmp.txt=="disable")
+                                        {
+                                            tsw bStop1,0
+                                            spstr strCommand.txt,bStop1.txt,"~",7
+                                            bStop1.pco=27501
+                                        }else if(tTmp.txt=="enable")
+                                        {
+                                            spstr strCommand.txt,bStop1.txt,"~",7
+                                            tsw bStop1,1
+                                            bStop1.pco=65535
+                                        }
+                                        // set icon bDown
+                                        spstr strCommand.txt,tTmp.txt,"~",11
+                                        if(tTmp.txt=="disable")
+                                        {
+                                            spstr strCommand.txt,bDown1.txt,"~",8
+                                            tsw bDown1,0
+                                            bDown1.pco=27501
+                                        }else if(tTmp.txt=="enable")
+                                        {
+                                            spstr strCommand.txt,bDown1.txt,"~",8
+                                            tsw bDown1,1
+                                            bDown1.pco=65535
+                                        }
+                                        // set tTiltHeading (localization)
+                                        spstr strCommand.txt,tTiltHeading.txt,"~",12
+                                        // set icon bUp
+                                        spstr strCommand.txt,tTmp.txt,"~",16
+                                        if(tTmp.txt=="disable")
+                                        {
+                                            tsw bTLeft,0
+                                            spstr strCommand.txt,bTLeft.txt,"~",13
+                                            bTLeft.pco=27501
+                                            vis bTLeft,1
+                                        }else if(tTmp.txt=="enable")
+                                        {
+                                            spstr strCommand.txt,bTLeft.txt,"~",13
+                                            tsw bTLeft,1
+                                            bTLeft.pco=65535
+                                            vis bTLeft,1
+                                        }
+                                        // set icon bStop
+                                        spstr strCommand.txt,tTmp.txt,"~",17
+                                        if(tTmp.txt=="disable")
+                                        {
+                                            tsw bTStop,0
+                                            spstr strCommand.txt,bTStop.txt,"~",14
+                                            bTStop.pco=27501
+                                            vis bTStop,1
+                                        }else if(tTmp.txt=="enable")
+                                        {
+                                            spstr strCommand.txt,bTStop.txt,"~",14
+                                            tsw bTStop,1
+                                            bTStop.pco=65535
+                                            vis bTStop,1
+                                        }
+                                        // set icon bDown
+                                        spstr strCommand.txt,tTmp.txt,"~",18
+                                        if(tTmp.txt=="disable")
+                                        {
+                                            spstr strCommand.txt,bTRight.txt,"~",15
+                                            tsw bTRight,0
+                                            bTRight.pco=27501
+                                            vis bTRight,1
+                                        }else if(tTmp.txt=="enable")
+                                        {
+                                            spstr strCommand.txt,bTRight.txt,"~",15
+                                            tsw bTRight,1
+                                            bTRight.pco=65535
+                                            vis bTRight,1
+                                        }
+                                        // set tilt slider
+                                        spstr strCommand.txt,tTmp.txt,"~",19
+                                        if(tTmp.txt!="disable")
+                                        {
+                                            vis hTilt,1
+                                            covx tTmp.txt,sys0,0,0
+                                            hTilt.val=sys0
+                                        }
                                     }
                                     if(tInstruction.txt=="dimmode")
                                     {
                                         // get value
                                         spstr strCommand.txt,tTmp.txt,"~",1
                                         covx tTmp.txt,dimValue,0,0
+                                        // get value normal
+                                        spstr strCommand.txt,tTmp.txt,"~",2
+                                        covx tTmp.txt,dimValueNormal,0,0
+                                        dim=dimValueNormal
+                                        // get background color
+                                        spstr strCommand.txt,tTmp.txt,"~",3
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultBcoColor,0,0
+                                        }
+                                        // get font color
+                                        spstr strCommand.txt,tTmp.txt,"~",4
+                                        if(tTmp.txt!="")
+                                        {
+                                            covx tTmp.txt,defaultFontColor,0,0
+                                        }
                                     }
                                     if(tInstruction.txt=="time")
                                     {
@@ -673,6 +1017,10 @@ Timer tmSerial
                                         {
                                             page cardAlarm
                                         }
+                                        if(tId.txt=="cardQR")
+                                        {
+                                            page cardQR
+                                        }
                                     }
                                     // end of user code
                                     udelete payloadLength-1
@@ -684,20 +1032,11 @@ Timer tmSerial
                     // next character
                     bufferPos++
                 }
-                if(bufferPos==usize)
-                {
-                    // copy whole buffer to t1.txt, for debugging
-                    //ucopy t2.txt,0,usize,0
-                    // ucopy n2.val,0,usize,0
-                    // clear whole buffer
-                    //code_c
-                    //bufferPos=0
-                }
             }
         
 TouchCap tc0
     Attributes
-        ID   : 7
+        ID   : 6
         Scope: local
         Value: 0
     
