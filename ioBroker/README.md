@@ -139,3 +139,32 @@ pages: [
             ]
         }]
 ```
+# Subpage Lightswitch
+
+add option: "Name-of-Subpage" to the PageItem 
+```
+var Test_Licht: PageEntities =
+{
+    "type": "cardEntities",
+    "heading": "Licht EG",
+    "useColor": true,
+    "subPage": false,
+    "parent": undefined,
+    "items": [
+        <PageItem>{ id: "alias.0.Licht.Terrasse", name: "Terrasse", icon: "lightbulb-on-outline", offColor: Off, onColor: On, option: "Terrasse" },
+    ]
+};
+
+var Terrasse: PageEntities =
+{
+    "type": "cardEntities",
+    "heading": "Licht Einstellung",
+    "useColor": true,
+    "subPage": true,
+    "parent": Test_Licht,
+    "items": [
+        <PageItem>{ id: "alias.0.Licht.Terrassenlicht_Automatik_An", name: "Terrasse auto An", icon: "lightbulb-on-outline" },
+        <PageItem>{ id: "alias.0.Licht.Terrassenlicht_Automatik_Aus", name: "Terrasse auto Aus", icon: "lightbulb-on-outline", offColor: Off, onColor: On },
+        <PageItem>{ id: "alias.0.Licht.Terrassenlicht_Dauer",name: "Terrasse Nachlaufzeit", minValue: 1, maxValue: 10, icon: "lightbulb-on-outline", onColor: White},
+    ]
+};
