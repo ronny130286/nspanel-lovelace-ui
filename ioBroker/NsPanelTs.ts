@@ -887,8 +887,13 @@ function HandleMessage(typ: string, method: string, page: number, words: Array<s
                 screensaverEnabled = false;
                 UnsubscribeWatcher();
                 let pageItem = findPageItem(words[3]);  
-                if (pageItem !== undefined)
-                    SendToPanel(GenerateDetailPage(words[2], pageItem));                                         
+                if (pageItem !== undefined && pageItem.option == undefined){
+                    SendToPanel(GenerateDetailPage(words[2], pageItem));
+                }
+                else if(pageItem !== undefined && pageItem.option !== undefined){   
+                    GeneratePage(eval((words[3].split("+")[1]).substring(7, (words[3]).length)))
+                    break;
+                }                                         
             case "buttonPress2":
                 screensaverEnabled = false;
                 HandleButtonEvent(words);
@@ -1111,8 +1116,11 @@ function CreateEntity(pageItem: PageItem, placeId: number, useColors: boolean = 
                         } 
                     }
                 }
+                if(pageItem.option){
+                    optOp = "+option." + pageItem.option
+                }
 
-                return "~" + type + "~" + pageItem.id + "~" + iconId + "~" + iconColor + "~" + name + "~" + optVal;
+                return "~" + type + "~"  + pageItem.id + optOp +  "~" + iconId + "~" + iconColor + "~" + name + "~" + optVal;
                 
             case "hue":
 
@@ -1936,7 +1944,7 @@ function toggleState(id: string): boolean {
 }
 
 function HandleButtonEvent(words): void {
-    var id = words[2]
+    var id = words[2].split("+")[0];
     var buttonAction = words[3];
 
     if (Debug) {
@@ -2981,6 +2989,7 @@ type PageItem = {
     buttonText: (string | undefined),
     unit: (string | undefined),
     navigate: (boolean | undefined),
+    option: (string | undefined),
 }
 
 type DimMode = {
